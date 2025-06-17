@@ -4,8 +4,10 @@ pipeline {
     stages {
         stage('Run Ansible Playbook') {
             steps {
-                
-                ansible-playbook -i /home/kelly/ansible-jenkins-projects/ansible-jenkins-project1/hosts.ini /home/kelly/ansible-jenkins-projects/ansible-jenkins-project1/nginx-install.yml
+                sh '''
+                ansible-playbook -i /home/kelly/ansible-jenkins-projects/ansible-jenkins-project1/hosts.ini \
+                /home/kelly/ansible-jenkins-projects/ansible-jenkins-project1/nginx-install.yml
+                '''
             }
         }
     }
