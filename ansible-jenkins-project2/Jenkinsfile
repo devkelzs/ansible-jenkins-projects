@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/devkelzs/ansible-jenkins-projects.git' git branch: 'main'
+                git url: 'https://github.com/devkelzs/ansible-jenkins-projects.git', branch: 'main'
             }
         }
 
