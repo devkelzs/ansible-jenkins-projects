@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'ENV', choices: ['dev'], description: 'Choose environment to deploy')
+    }
+
+    environment {
+        INVENTORY = "ansible/inventory_${params.ENV}"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/devkelzs/ansible-jenkins-projects.git' git branch: 'main'
+            }
+        }
+
+        stage('Run Ansible') {
+            steps {
+                sh """
+                    cd ansible-jenkins-project2/ansible
+                    ansible-playbook -i inventory.ini playbook.yml
+                """
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Deployment to ${params.ENV} successful!"
+        }
+        failure {
+            echo "Deployment failed!"
+        }
+    }
+}
