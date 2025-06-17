@@ -1,4 +1,3 @@
-```markdown
 # Ansible NGINX Installation via Jenkins Pipeline
 
 This project automates the installation and configuration of **NGINX** on a remote EC2 instance using **Ansible**, triggered via a **Jenkins Pipeline** job.
