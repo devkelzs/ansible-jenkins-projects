@@ -1,6 +1,6 @@
 ---
 - name: Deploy web application using roles
-  hosts: webserver
+  hosts: webservers
   become: true
   roles:
     - role: app

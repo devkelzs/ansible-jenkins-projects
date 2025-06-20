@@ -10,7 +10,7 @@ pipeline {
 
         stage('Run Ansible Deployment') {
             steps {
-                sh 'ansible-playbook ansible-jenkins-project3/ansible/deploy.yml -i ansible-jenkins-project3/ansible/inventory.yml'
+                sh 'ansible-playbook ansible-jenkins-project3/ansible/deploy.yml -i ansible-jenkins-project3/ansible/inventory.ini'
             }
         }
     }
