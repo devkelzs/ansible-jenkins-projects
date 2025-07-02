@@ -1,25 +1,32 @@
 ---
-- name: Install python and pip
+- name: Update apt cache
   apt:
-   name: "{{ item }}"
-  loop:
-    - python3
-    - python3-pip
+    update_cache: yes
 
-- name: Install Gunicorn and Flask
-  pip:
+- name: Install Python3, Flask, Gunicorn (apt packages)
+  apt:
     name:
-      - gunicorn
-      - flask
+      - python3
+      - python3-flask
+      - gunicorn3
+    state: present
 
-- name: Copy applicattion code
-  copy:
-    src: ../../app/
-    dest: /opt/flasK_app/
+- name: Create app directory
+  file:
+    path: /opt/flask_app
+    state: directory
     mode: '0755'
 
-- name: Start the flask app with Gunicorn
+- name: Copy Flask main.py
+  copy:
+    src: ../app/main.py
+    dest: /opt/flask_app/main.py
+    mode: '0644'
+
+- name: Start Flask app with Gunicorn
   shell: |
     pkill gunicorn || true
-    cd /opt/flasK_app/
-    nohub gunicorn -w 3 -b 0.0.0:5000 main:app &
+    nohup gunicorn -w 3 -b 0.0.0.0:5000 main:app &
+  args:
+    chdir: /opt/flask_app
+    executable: /bin/bash
