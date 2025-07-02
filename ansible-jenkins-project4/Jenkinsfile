@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/devkelzs/ansible-jenkins-projects'
+            }
+        }
+
+        stage('Deploy via Ansible') {
+            steps {
+                dir('ansible') {
+                    sh 'ansible-playbook -i inventory.ini playbook.yml'
+                }
+            }
+        }
+    }
+}
